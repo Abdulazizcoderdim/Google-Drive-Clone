@@ -1,3 +1,5 @@
+import Navbar from '@/components/shared/Navbar'
+
 const RootLayout = ({
   children,
 }: Readonly<{
@@ -5,8 +7,8 @@ const RootLayout = ({
 }>) => {
   return (
     <div>
+      <Navbar />
       {children}
-      <p>footer</p>
     </div>
   )
 }
