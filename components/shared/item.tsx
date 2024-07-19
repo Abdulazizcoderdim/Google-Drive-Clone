@@ -5,12 +5,12 @@ import { LucideIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
 interface ItemProps {
-  icon: LucideIcon
+  icon: React.ReactElement
   label: string
   path?: string
 }
 
-const Item = ({ icon: Icon, label, path }: ItemProps) => {
+const Item = ({ icon, label, path }: ItemProps) => {
   const pathname = usePathname()
 
   const isActive = pathname === path
@@ -22,7 +22,7 @@ const Item = ({ icon: Icon, label, path }: ItemProps) => {
         isActive && 'bg-secondary'
       )}
     >
-      <Icon className="w-5 h-5" />
+      {icon}
       <span className="pl-2 text-md opacity-75">{label}</span>
     </div>
   )

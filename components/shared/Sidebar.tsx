@@ -1,6 +1,8 @@
 import { Clock5, Cloud, Plus, Star, Tablet, Trash } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '../ui/button'
+import Item from './Item'
+import React from 'react'
 
 const Sidebar = () => {
   return (
@@ -13,7 +15,7 @@ const Sidebar = () => {
         <div className="flex flex-col space-y-6 mt-8">
           {sidebarLinks.map((link) => (
             <Link key={link.path} href={link.path}>
-              
+              <Item icon={React.createElement(link.icon)} label={link.label}/>
             </Link>
           ))}
         </div>
