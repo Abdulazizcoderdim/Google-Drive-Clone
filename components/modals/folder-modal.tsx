@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Dialog,
   DialogContent,
@@ -6,10 +8,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { useFolder } from '@/hooks/use-folder'
 
 const FolderModal = () => {
+  const { isOpen, onClose } = useFolder()
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogTrigger>Open</DialogTrigger>
       <DialogContent>
         <DialogHeader>
