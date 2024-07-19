@@ -1,4 +1,5 @@
 import Navbar from '@/components/shared/Navbar'
+import Sidebar from '@/components/shared/Sidebar'
 
 const RootLayout = ({
   children,
@@ -8,6 +9,7 @@ const RootLayout = ({
   return (
     <div>
       <Navbar />
+      <Sidebar />
       {children}
     </div>
   )
