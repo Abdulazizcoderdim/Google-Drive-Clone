@@ -1,6 +1,6 @@
-import Navbar from "@/components/shared/Navbar";
-import Sidebar from "@/components/shared/Sidebar";
-import React from "react";
+import Navbar from '@/components/shared/Navbar'
+import Sidebar from '@/components/shared/Sidebar'
+import React from 'react'
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -13,7 +13,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default RootLayout;
+export default RootLayout
