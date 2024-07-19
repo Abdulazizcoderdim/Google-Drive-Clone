@@ -6,7 +6,9 @@ const AuthLayout = ({ children }: ChildProps) => {
     <div className="relative">
       <Navbar />
       <div>Sidebar</div>
-      {children}
+      <main className="flex items-center justify-center w-full h-[90vh] z-50 relative">
+        {children}
+      </main>
     </div>
   )
 }
