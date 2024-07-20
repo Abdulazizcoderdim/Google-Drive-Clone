@@ -51,7 +51,6 @@ const FolderModal = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger>Open</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>New Folder</DialogTitle>
