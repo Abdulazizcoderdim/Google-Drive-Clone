@@ -3,6 +3,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes'
 import { Inter } from 'next/font/google'
+import { Toaster } from 'sonner'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -28,6 +29,7 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey="google-drive"
           >
+            <Toaster position="top-center" />
             <ModalProvider />
             {children}
           </ThemeProvider>
