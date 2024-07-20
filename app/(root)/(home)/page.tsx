@@ -1,3 +1,4 @@
+import Lists from '@/components/shared/Lists'
 import Header from '@/components/shared/header'
 import { db } from '@/lib/firebase'
 import { auth } from '@clerk/nextjs/server'
@@ -26,6 +27,10 @@ const HomePage = async () => {
   return (
     <>
       <Header label={'My drive'} isHome />
+      <Lists
+        folders={JSON.parse(JSON.stringify(folders))}
+        files={JSON.parse(JSON.stringify(files))}
+      />
     </>
   )
 }
