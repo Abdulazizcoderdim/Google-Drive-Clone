@@ -10,8 +10,8 @@ import {
 
 import { useLayout } from '@/hooks/use-layout'
 import { IFolderAndFile } from '@/types'
-import ListItem from './list-item'
 import SuggestCard from '../card/suggest-card'
+import ListItem from './list-item'
 
 interface ListsProps {
   folders: IFolderAndFile[]
@@ -41,7 +41,7 @@ const Lists = ({ files, folders }: ListsProps) => {
   ) : (
     <>
       <div className="text-sm opacity-70 mt-6">Suggested</div>
-      <div className="grid grid-cols-4 gap-4 mt-4">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4 mt-4">
         {files.map((file) => (
           <SuggestCard item={file} key={file.id} />
         ))}
