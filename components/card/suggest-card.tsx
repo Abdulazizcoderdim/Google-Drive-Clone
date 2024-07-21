@@ -1,13 +1,18 @@
 import { defineImageAndFile } from '@/lib/utils'
 import { IFolderAndFile } from '@/types'
+import { useUser } from '@clerk/nextjs'
 import { File, Paperclip } from 'lucide-react'
 import Image from 'next/image'
+import ListAction from '../shared/list-action'
+import { Avatar, AvatarImage } from '../ui/avatar'
 
 interface SuggestCardProps {
   item: IFolderAndFile
 }
 
 const SuggestCard = ({ item }: SuggestCardProps) => {
+  const { user } = useUser()
+
   return (
     <div className="max-w-[300px] max-h-[400px] h-[210px] flex flex-col rounded-md shadow-lg p-4 bg-secondary group">
       <div
@@ -26,6 +31,17 @@ const SuggestCard = ({ item }: SuggestCardProps) => {
         ) : (
           <Image fill src={item.image} alt="image" className="object-cover" />
         )}
+      </div>
+
+      <div className="flex items-center w-full justify-between space-x-2 mt-4">
+        <div className="flex items-center space-x-2">
+          <Avatar className="w-6 h-6">
+            <AvatarImage src={user?.imageUrl} />
+          </Avatar>
+          <span className="opacity-75">me</span>
+        </div>
+
+        <ListAction item={item} />
       </div>
     </div>
   )
