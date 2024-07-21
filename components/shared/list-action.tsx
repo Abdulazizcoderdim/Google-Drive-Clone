@@ -15,9 +15,12 @@ interface ListActionProps {
 }
 
 const ListAction = ({ item }: ListActionProps) => {
+  const onClose = () => {}
+
   return (
     <div className="flex items-center space-x-1">
       <div
+        onClick={onClose}
         role="button"
         title="Delete"
         className="p-2 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full transition opacity-0 group-hover:opacity-100"
