@@ -1,11 +1,13 @@
 'use client'
 
+import { byteConverter } from '@/lib/utils'
 import { IFolderAndFile } from '@/types'
 import { useUser } from '@clerk/nextjs'
 import { format } from 'date-fns'
-import { File, Folder } from 'lucide-react'
+import { File, Folder, Minus } from 'lucide-react'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { TableCell, TableRow } from '../ui/table'
+import ListAction from './list-action'
 
 interface ListItemProps {
   item: IFolderAndFile
@@ -13,6 +15,8 @@ interface ListItemProps {
 
 const ListItem = ({ item }: ListItemProps) => {
   const { user } = useUser()
+
+  console.log(item)
 
   return (
     <TableRow className="group cursor-pointer">
@@ -35,8 +39,10 @@ const ListItem = ({ item }: ListItemProps) => {
       <TableCell>
         {format(new Date(item.timestamp.seconds * 1000), 'MMM dd, yyyy')}
       </TableCell>
-      <TableCell></TableCell>
-      <TableCell className="text-right">$250.00</TableCell>
+      <TableCell>{item.size ? byteConverter(item.size) : <Minus />}</TableCell>
+      <TableCell className="flex justify-end group items-center space-x-2">
+        <ListAction item={item} />
+      </TableCell>
     </TableRow>
   )
 }
