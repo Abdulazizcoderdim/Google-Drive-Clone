@@ -1,5 +1,6 @@
+import { defineImageAndFile } from '@/lib/utils'
 import { IFolderAndFile } from '@/types'
-import { Paperclip } from 'lucide-react'
+import { File, Paperclip } from 'lucide-react'
 import Image from 'next/image'
 
 interface SuggestCardProps {
@@ -18,7 +19,13 @@ const SuggestCard = ({ item }: SuggestCardProps) => {
         <span className="text-sm opacity-70">{item.name}</span>
       </div>
       <div className="relative h-[70%] w-full bg-white dark:bg-black mt-2 rounded-md">
-        <Image fill src={item.image} alt="image" className="object-cover" />
+        {defineImageAndFile(item.type) === 'file' ? (
+          <div className="flex h-full items-center justify-center">
+            <File className="w-16 h-16" strokeWidth={1} />
+          </div>
+        ) : (
+          <Image fill src={item.image} alt="image" className="object-cover" />
+        )}
       </div>
     </div>
   )
