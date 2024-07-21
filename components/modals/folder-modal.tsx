@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import { useFolder } from '@/hooks/use-folder'
 import { db } from '@/lib/firebase'
@@ -13,16 +12,18 @@ import { formSchema } from '@/lib/validation'
 import { useUser } from '@clerk/nextjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import * as z from 'zod'
 import { Button } from '../ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
-import { toast } from 'sonner'
 
 const FolderModal = () => {
   const { isOpen, onClose } = useFolder()
   const { user } = useUser()
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,6 +41,7 @@ const FolderModal = () => {
     }).then(() => {
       form.reset()
       onClose()
+      router.refresh()
     })
 
     toast.promise(promise, {

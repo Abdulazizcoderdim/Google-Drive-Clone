@@ -12,6 +12,7 @@ import {
 } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { FileUp, Folder, FolderUp } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { ElementRef, useRef } from 'react'
 import { toast } from 'sonner'
 import { Separator } from '../ui/separator'
@@ -20,6 +21,7 @@ const PopoverActions = () => {
   const inputRef = useRef<ElementRef<'input'>>(null)
   const { onOpen } = useFolder()
   const { user } = useUser()
+  const router = useRouter()
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -50,6 +52,8 @@ const PopoverActions = () => {
         getDownloadURL(refs).then((url) => {
           updateDoc(doc(db, 'files', docs.id), {
             image: url,
+          }).then(() => {
+            router.refresh()
           })
         })
       })
