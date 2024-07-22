@@ -16,9 +16,10 @@ import { Separator } from '../ui/separator'
 
 interface ListActionProps {
   item: IFolderAndFile
+  onStartEditing?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-const ListAction = ({ item }: ListActionProps) => {
+const ListAction = ({ item, onStartEditing }: ListActionProps) => {
   const { refresh } = useRouter()
 
   const type = item.size ? 'files' : 'folders'
@@ -142,6 +143,7 @@ const ListAction = ({ item }: ListActionProps) => {
             className="flex items-center hover:bg-secondary transition py-2 px-4 space-x-2 text-sm"
             role="button"
             title="Rename"
+            onClick={onStartEditing}
           >
             <Pencil className="w-4 h-4" />
             <span>Rename</span>
