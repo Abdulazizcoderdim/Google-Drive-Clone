@@ -69,6 +69,25 @@ const ListAction = ({ item }: ListActionProps) => {
     })
   }
 
+  const onDownload = () => {
+    if (!item.size) {
+      toast.error('This is a folder, not a file.')
+      return
+    }
+
+    window.open(item.image, '_blank')
+  }
+
+  const onShare = () => {
+    if (!item.size) {
+      toast.error("You can't share a folder.")
+      return
+    }
+
+    navigator.clipboard.writeText(item.image)
+    toast.success('Link copied!')
+  }
+
   return (
     <div className="flex items-center space-x-1">
       <div
@@ -113,6 +132,7 @@ const ListAction = ({ item }: ListActionProps) => {
             className="flex items-center hover:bg-secondary transition py-2 px-4 space-x-2 text-sm"
             role="button"
             title="Download"
+            onClick={onDownload}
           >
             <Download className="w-4 h-4" />
             <span>Download</span>
@@ -131,6 +151,7 @@ const ListAction = ({ item }: ListActionProps) => {
             className="flex items-center hover:bg-secondary transition py-2 px-4 space-x-2 text-sm"
             role="button"
             title="user"
+            onClick={onShare}
           >
             <UserPlus className="w-4 h-4" />
             <span>Share</span>
