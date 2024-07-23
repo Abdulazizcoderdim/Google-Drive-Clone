@@ -1,12 +1,11 @@
-
 import { Clock5, Cloud, Plus, Star, Tablet, Trash } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Progress } from '../ui/progress'
-import PopoverActions from './popover-actions'
 import Item from './Item'
+import PopoverActions from './popover-actions'
 
 const Sidebar = () => {
   return (
