@@ -6,6 +6,7 @@ const nextConfig = {
       { protocol: 'http', hostname: '*' },
       { protocol: 'https', hostname: 'firebasestorage.googleapis.com' },
     ],
+    domains: ['firebasestorage.googleapis.com'],
   },
 }
 
