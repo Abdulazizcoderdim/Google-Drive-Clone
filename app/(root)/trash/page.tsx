@@ -1,7 +1,12 @@
 import Header from '@/components/shared/header'
-import ListItem from '@/components/shared/list-item'
 import TrashItem from '@/components/shared/trash-item'
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 import { db } from '@/lib/firebase'
 import { auth } from '@clerk/nextjs/server'
 import { collection, getDocs, query, where } from 'firebase/firestore'

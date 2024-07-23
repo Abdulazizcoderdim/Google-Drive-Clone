@@ -17,8 +17,9 @@ const Item = ({ icon, label, path }: ItemProps) => {
   return (
     <div
       className={cn(
-        'flex items-center active:bg-[#C2E7FF] transition hover:bg-secondary rounded-full px-4 py-2 cursor-pointer',
-        isActive && 'bg-[#C2E7FF]'
+        'flex items-center active:bg-[#C2E7FF] transition rounded-full px-4 py-2 cursor-pointer',
+        isActive && 'bg-[#C2E7FF]',
+        !isActive && 'hover:bg-secondary'
       )}
     >
       {icon}

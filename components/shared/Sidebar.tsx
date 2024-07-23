@@ -4,8 +4,8 @@ import React from 'react'
 import { Button } from '../ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Progress } from '../ui/progress'
-import Item from './Item'
 import PopoverActions from './popover-actions'
+import Item from './item'
 
 const Sidebar = () => {
   return (
