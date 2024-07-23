@@ -1,4 +1,3 @@
-"use client"
 
 import { Clock5, Cloud, Plus, Star, Tablet, Trash } from 'lucide-react'
 import Link from 'next/link'
