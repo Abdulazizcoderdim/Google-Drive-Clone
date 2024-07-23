@@ -1,7 +1,6 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { LucideIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
 interface ItemProps {
@@ -19,7 +18,7 @@ const Item = ({ icon, label, path }: ItemProps) => {
     <div
       className={cn(
         'flex items-center transition hover:bg-secondary rounded-full px-4 py-2 cursor-pointer',
-        isActive && 'bg-secondary'
+        isActive && 'bg-[#C2E7FF]'
       )}
     >
       {icon}
