@@ -1,15 +1,17 @@
 'use client'
 
-import { db } from '@/lib/firebase'
+import { db, storage } from '@/lib/firebase'
 import { byteConverter } from '@/lib/utils'
 import { IFolderAndFile } from '@/types'
 import { format } from 'date-fns'
-import { doc, setDoc } from 'firebase/firestore'
+import { deleteDoc, doc, setDoc } from 'firebase/firestore'
 import { File, Folder, Minus, MoreVertical, Trash, Undo } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import ConfirmModal from '../modals/confirm-modal'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { TableCell, TableRow } from '../ui/table'
+import { deleteObject, ref } from 'firebase/storage'
 
 interface TrashItemProps {
   item: IFolderAndFile
@@ -34,6 +36,32 @@ const TrashItem = ({ item }: TrashItemProps) => {
       success: 'Restored!',
       error: 'Failed to restore',
     })
+  }
+
+  const onDelete = () => {
+    const refs = doc(db, type, item.id)
+
+    if(type === 'folders'){
+      const promise = deleteDoc(refs).then(() => refresh())
+
+      toast.promise(promise, {
+        loading: 'Loading...',
+        success: 'Deleted!',
+        error: 'Failed to delete',
+      })
+    }
+
+    if(type === 'files'){
+      const promise = deleteObject(ref(storage, item.image)).then(() => {
+        deleteDoc(refs).then(() => refresh())
+      })
+
+      toast.promise(promise, {
+        loading: 'Loading...',
+        success: 'Deleted!',
+        error: 'Failed to delete',
+      })
+    }
   }
 
   return (
@@ -74,14 +102,16 @@ const TrashItem = ({ item }: TrashItemProps) => {
               <Undo className="w-4 h-4" />
               <span>Restore</span>
             </div>
-            <div
-              className="flex items-center hover:bg-secondary transition py-2 px-4 space-x-2 text-sm"
-              role="button"
-              title="Download"
-            >
-              <Trash className="w-4 h-4" />
-              <span>Delete</span>
-            </div>
+            <ConfirmModal onConfirm={onDelete}>
+              <div
+                className="flex items-center hover:bg-secondary transition py-2 px-4 space-x-2 text-sm"
+                role="button"
+                title="Download"
+              >
+                <Trash className="w-4 h-4" />
+                <span>Delete</span>
+              </div>
+            </ConfirmModal>
           </PopoverContent>
         </Popover>
       </TableCell>
