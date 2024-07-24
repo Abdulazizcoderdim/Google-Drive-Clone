@@ -11,6 +11,12 @@ export interface DocIdProps {
   }
 }
 
+export interface DocIdProps {
+  params: {
+    documentId: string
+  }
+}
+
 export interface IFolderAndFile {
   id: string
   name: string
