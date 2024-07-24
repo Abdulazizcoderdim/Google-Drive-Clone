@@ -1,3 +1,4 @@
+import Empty from '@/components/shared/empty'
 import Header from '@/components/shared/header'
 import TrashItem from '@/components/shared/trash-item'
 import {
@@ -34,20 +35,24 @@ const TrashPage = async () => {
   return (
     <>
       <Header label="Trash" />
-      <Table className="mt-4">
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Archive time</TableHead>
-            <TableHead>File size</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {[...folders, ...files].map((folder) => (
-            <TrashItem key={folder.id} item={folder} />
-          ))}
-        </TableBody>
-      </Table>
+      {[...folders, ...files].length === 0 ? (
+        <Empty />
+      ) : (
+        <Table className="mt-4">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Archive time</TableHead>
+              <TableHead>File size</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {[...folders, ...files].map((folder) => (
+              <TrashItem key={folder.id} item={folder} />
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </>
   )
 }
