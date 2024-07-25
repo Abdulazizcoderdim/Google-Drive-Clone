@@ -1,8 +1,12 @@
+import Header from '@/components/shared/header'
 import { DocIdProps } from '@/types'
 
 const DocumentIdPage = ({ params }: DocIdProps) => {
-    console.log(params)
-  return <div>DocumentIdPage</div>
+  return (
+    <>
+      <Header label='Drive' isHome />
+    </>
+  )
 }
 
 export default DocumentIdPage
