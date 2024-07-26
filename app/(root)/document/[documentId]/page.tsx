@@ -47,7 +47,7 @@ const DocumentIdPage = async ({ params }: DocIdProps) => {
         <Empty />
       ) : (
         <>
-          <div className="grid grid-cols-4 gap-4 mt-4">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4 mt-4">
             {files.map((file) => (
               <SuggestCard item={file} key={file.id} />
             ))}

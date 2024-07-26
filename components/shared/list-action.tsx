@@ -9,7 +9,7 @@ import {
   Trash,
   UserPlus,
 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Separator } from '../ui/separator'
@@ -21,13 +21,17 @@ interface ListActionProps {
 
 const ListAction = ({ item, onStartEditing }: ListActionProps) => {
   const { refresh } = useRouter()
+  const { documentId } = useParams()
 
+  const folderId = documentId as string
   const type = item.size ? 'files' : 'folders'
+  const ref = documentId
+    ? doc(db, type, folderId, 'files', item.id)
+    : doc(db, type, item.id)
 
   const onDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
 
-    const ref = doc(db, type, item.id)
     const promise = setDoc(ref, {
       ...item,
       isArchive: true,
@@ -44,7 +48,7 @@ const ListAction = ({ item, onStartEditing }: ListActionProps) => {
   const onAddStar = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
 
-    const ref = doc(db, type, item.id)
+   
 
     const promise = setDoc(ref, { ...item, isStar: true }).then(() => refresh())
 
@@ -57,7 +61,6 @@ const ListAction = ({ item, onStartEditing }: ListActionProps) => {
   const onRemoveStar = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
 
-    const ref = doc(db, type, item.id)
 
     const promise = setDoc(ref, { ...item, isStar: false }).then(() =>
       refresh()
