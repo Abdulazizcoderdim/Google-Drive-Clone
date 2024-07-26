@@ -24,7 +24,7 @@ const Header = ({ label, isHome }: HeaderProps) => {
         <Popover>
           <PopoverTrigger className="flex justify-start">
             <div className="px-4 py-2 hover:bg-secondary transition rounded-full flex items-center space-x-2">
-              <h2 className="text-xl">{label}</h2>
+              <h2 className="text-xl capitalize">{label}</h2>
               <ChevronDown />
             </div>
           </PopoverTrigger>
