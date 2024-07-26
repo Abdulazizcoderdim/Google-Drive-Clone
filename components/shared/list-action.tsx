@@ -26,7 +26,7 @@ const ListAction = ({ item, onStartEditing }: ListActionProps) => {
   const folderId = documentId as string
   const type = item.size ? 'files' : 'folders'
   const ref = documentId
-    ? doc(db, type, folderId, 'files', item.id)
+    ? doc(db, 'folders', folderId, 'files', item.id)
     : doc(db, type, item.id)
 
   const onDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -48,8 +48,6 @@ const ListAction = ({ item, onStartEditing }: ListActionProps) => {
   const onAddStar = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
 
-   
-
     const promise = setDoc(ref, { ...item, isStar: true }).then(() => refresh())
 
     toast.promise(promise, {
@@ -60,7 +58,6 @@ const ListAction = ({ item, onStartEditing }: ListActionProps) => {
   }
   const onRemoveStar = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
-
 
     const promise = setDoc(ref, { ...item, isStar: false }).then(() =>
       refresh()
