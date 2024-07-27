@@ -13,9 +13,10 @@ import PopoverActions from './popover-actions'
 interface HeaderProps {
   label: string
   isHome?: boolean
+  isDocument?: boolean
 }
 
-const Header = ({ label, isHome }: HeaderProps) => {
+const Header = ({ label, isHome, isDocument }: HeaderProps) => {
   const { setLayout, layout } = useLayout()
 
   return (
@@ -36,7 +37,7 @@ const Header = ({ label, isHome }: HeaderProps) => {
         <div className="text-xl">{label}</div>
       )}
 
-      {isHome && (
+      {isHome && !isDocument && (
         <div className="flex items-center space-x-2">
           {layout === 'list' ? (
             <div
