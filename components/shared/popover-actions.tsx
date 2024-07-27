@@ -12,6 +12,7 @@ import {
 } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { FileUp, Folder, FolderUp, Star, Trash } from 'lucide-react'
+import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { ElementRef, useRef } from 'react'
 import { toast } from 'sonner'
@@ -131,22 +132,26 @@ const PopoverActions = () => {
       {documentId && (
         <>
           <Separator />
-          <div
-            className="flex items-center hover:bg-secondary transition py-2 px-4 space-x-2 text-sm"
-            role="button"
-            title="Trash"
-          >
-            <Trash className="w-4 h-4" />
-            <span>Trash</span>
-          </div>
-          <div
-            className="flex items-center hover:bg-secondary transition py-2 px-4 space-x-2 text-sm"
-            role="button"
-            title="Trash"
-          >
-            <Star className="w-4 h-4" />
-            <span>Starred</span>
-          </div>
+          <Link href={`/document/${documentId}/trash`}>
+            <div
+              className="flex items-center hover:bg-secondary transition py-2 px-4 space-x-2 text-sm"
+              role="button"
+              title="Trash"
+            >
+              <Trash className="w-4 h-4" />
+              <span>Trash</span>
+            </div>
+          </Link>
+          <Link href={`/document/${documentId}/starred`}>
+            <div
+              className="flex items-center hover:bg-secondary transition py-2 px-4 space-x-2 text-sm"
+              role="button"
+              title="Starred"
+            >
+              <Star className="w-4 h-4" />
+              <span>Starred</span>
+            </div>
+          </Link>
         </>
       )}
     </>
