@@ -1,9 +1,24 @@
+import Empty from '@/components/shared/empty'
+import Header from '@/components/shared/header'
+import TrashItem from '@/components/shared/trash-item'
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { db } from '@/lib/firebase'
+import { DocIdProps } from '@/types'
+import { auth } from '@clerk/nextjs/server'
+import { collection, getDocs, query, where } from 'firebase/firestore'
+
 const getFiles = async (folderId: string, uid: string) => {
   let files: any[] = []
   const q = query(
     collection(db, 'folders', folderId, 'files'),
     where('uid', '==', uid),
-    where('isArchive', '==', false)
+    where('isArchive', '==', true)
   )
   const querySnapshot = await getDocs(q)
   querySnapshot.forEach((doc) => {
@@ -13,8 +28,33 @@ const getFiles = async (folderId: string, uid: string) => {
   return files
 }
 
-const DocumentTrashPage = () => {
-  return <div>DocumentTrashPage</div>
+const DocumentTrashPage = async ({ params }: DocIdProps) => {
+  const { userId } = auth()
+  const files = await getFiles(params.documentId, userId!)
+
+  return (
+    <>
+      <Header label='Trash' isDocumentPage/>
+      {files.length === 0 ? (
+        <Empty />
+      ) : (
+        <Table className="mt-4">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Archive time</TableHead>
+              <TableHead>File size</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {files.map((folder) => (
+              <TrashItem key={folder.id} item={folder} />
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </>
+  )
 }
 
 export default DocumentTrashPage

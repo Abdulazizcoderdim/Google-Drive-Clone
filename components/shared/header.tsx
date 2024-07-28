@@ -9,15 +9,18 @@ import {
 } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import PopoverActions from './popover-actions'
+import { useRouter } from 'next/navigation'
 
 interface HeaderProps {
   label: string
   isHome?: boolean
   isDocument?: boolean
+  isDocumentPage?: boolean
 }
 
-const Header = ({ label, isHome, isDocument }: HeaderProps) => {
+const Header = ({ label, isHome, isDocument, isDocumentPage }: HeaderProps) => {
   const { setLayout, layout } = useLayout()
+  const router = useRouter()
 
   return (
     <div className="w-full flex items-center justify-between">
