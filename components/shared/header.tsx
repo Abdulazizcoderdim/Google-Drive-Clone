@@ -2,14 +2,15 @@
 
 import { useLayout } from '@/hooks/use-layout'
 import {
+  ArrowBigLeftDash,
   ChevronDown,
   Info,
   LayoutPanelTop,
   TableProperties,
 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import PopoverActions from './popover-actions'
-import { useRouter } from 'next/navigation'
 
 interface HeaderProps {
   label: string
@@ -37,7 +38,16 @@ const Header = ({ label, isHome, isDocument, isDocumentPage }: HeaderProps) => {
           </PopoverContent>
         </Popover>
       ) : (
-        <div className="text-xl">{label}</div>
+        <>
+          {isDocumentPage ? (
+            <div onClick={() => router.back()} role='button' className="flex px-4 rounded-full py-2 items-center space-x-2 hover:bg-secondary transition">
+              <ArrowBigLeftDash className="w-6 h-6" />
+              <div className="text-xl">{label}</div>
+            </div>
+          ) : (
+            <div className="text-xl">{label}</div>
+          )}
+        </>
       )}
 
       {isHome && !isDocument && (

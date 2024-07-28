@@ -1,4 +1,9 @@
+import SuggestCard from '@/components/card/suggest-card'
+import Empty from '@/components/shared/empty'
+import Header from '@/components/shared/header'
 import { db } from '@/lib/firebase'
+import { DocIdProps } from '@/types'
+import { auth } from '@clerk/nextjs/server'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 
 const getFiles = async (folderId: string, uid: string) => {
@@ -17,8 +22,26 @@ const getFiles = async (folderId: string, uid: string) => {
   return files
 }
 
-const DocumentStarredPage = () => {
-  return <div>DocumentStarredPage</div>
+const DocumentStarredPage = async ({ params }: DocIdProps) => {
+  const { userId } = auth()
+  const files = await getFiles(params.documentId, userId!)
+
+  return (
+    <>
+      <Header label="Starred" isDocumentPage isHome={false} />
+      {files.length === 0 ? (
+        <Empty />
+      ) : (
+        <>
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4 mt-4">
+            {files.map((file) => (
+              <SuggestCard item={file} key={file.id} />
+            ))}
+          </div>
+        </>
+      )}
+    </>
+  )
 }
 
 export default DocumentStarredPage
