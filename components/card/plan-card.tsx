@@ -61,9 +61,6 @@ const PlanCard = ({
           </Button>
         </div>
       )}
-      <div className="w-full flex justify-center">
-        <Button>Get offer</Button>
-      </div>
       <Separator className="mt-4" />
       <p className="mt-3 opacity-75 text-sm">Google One includes</p>
 
