@@ -1,4 +1,9 @@
+'use client'
+
+import { useUser } from '@clerk/nextjs'
+import axios from 'axios'
 import { Check } from 'lucide-react'
+import { toast } from 'sonner'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 
@@ -17,6 +22,23 @@ const PlanCard = ({
   price,
   priceId,
 }: PlanCardProps) => {
+  const { user } = useUser()
+
+  const onSubmit = () => {
+    const promise = axios.post('/api/subscription', {
+      email: user?.emailAddresses[0].emailAddress,
+      fullName: user?.fullName,
+      userId: user?.id,
+      priceId,
+    })
+
+    toast.promise(promise, {
+      loading: 'Loading...',
+      success: 'Subscribed!',
+      error: 'Failed to subscribe',
+    })
+  }
+
   return (
     <div className="border rounded-md p-4">
       <h1 className="text-center text-xl">{name}</h1>
@@ -28,6 +50,17 @@ const PlanCard = ({
         </span>
         <span className="text-gray-500 dark:text-gray-400">/month</span>
       </div>
+      {priceId ? (
+        <div className="w-full flex justify-center">
+          <Button>Get offer</Button>
+        </div>
+      ) : (
+        <div className="w-full flex justify-center">
+          <Button disabled variant={'destructive'}>
+            Current plan
+          </Button>
+        </div>
+      )}
       <div className="w-full flex justify-center">
         <Button>Get offer</Button>
       </div>
