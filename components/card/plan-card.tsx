@@ -25,12 +25,14 @@ const PlanCard = ({
   const { user } = useUser()
 
   const onSubmit = () => {
-    const promise = axios.post('/api/subscription', {
-      email: user?.emailAddresses[0].emailAddress,
-      fullName: user?.fullName,
-      userId: user?.id,
-      priceId,
-    })
+    const promise = axios
+      .post('/api/subscription', {
+        email: user?.emailAddresses[0].emailAddress,
+        fullName: user?.fullName,
+        userId: user?.id,
+        priceId,
+      })
+      .then((res) => window.open(res.data.url, '_blank'))
 
     toast.promise(promise, {
       loading: 'Loading...',
@@ -52,7 +54,7 @@ const PlanCard = ({
       </div>
       {priceId ? (
         <div className="w-full flex justify-center">
-          <Button>Get offer</Button>
+          <Button onClick={onSubmit}>Get offer</Button>
         </div>
       ) : (
         <div className="w-full flex justify-center">

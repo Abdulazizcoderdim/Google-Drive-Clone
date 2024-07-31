@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   try {
-    const public_domain = process.env.NEXT_PUBLIC_DOMAIN
+    const public_domain = process.env.NEXT_PUBLIC_DOMAIN || 'http://localhost:3000'
 
     const { email, userId, priceId, fullName } = await req.json()
 
