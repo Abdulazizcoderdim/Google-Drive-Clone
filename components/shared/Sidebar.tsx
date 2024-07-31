@@ -1,13 +1,18 @@
+'use client'
+
+import { usePlan } from '@/hooks/use-plan'
 import { Clock5, Cloud, Plus, Star, Tablet, Trash } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Progress } from '../ui/progress'
-import PopoverActions from './popover-actions'
 import Item from './item'
+import PopoverActions from './popover-actions'
 
 const Sidebar = () => {
+  const { onOpen } = usePlan()
+
   return (
     <div className="h-[90vh] fixed w-72 top-[10vh] left-0 z-30 bg-[#F6F9FC] dark:bg-[#1f1f1f] ">
       <div className="flex flex-col p-3">
@@ -37,7 +42,11 @@ const Sidebar = () => {
             <Progress className="h-2" value={30} />
             <span>20 MB of 1.5 GB used</span>
 
-            <Button className="rounded-full" variant={'outline'}>
+            <Button
+              onClick={onOpen}
+              className="rounded-full"
+              variant={'outline'}
+            >
               Get more storage
             </Button>
           </div>
