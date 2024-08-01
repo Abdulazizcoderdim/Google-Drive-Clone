@@ -39,3 +39,24 @@ export async function POST(req: Request) {
     return NextResponse.json(error, { status: 500 })
   }
 }
+
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const email = searchParams.get("email");
+
+    const customers = await stripeClient.customers.list({ email: email! });
+
+    if (!customers.data.length) return NextResponse.json("Basic");
+
+    const subscriptions = await stripeClient.subscriptions.list({
+      customer: customers.data[0].id,
+    });
+
+    if (!subscriptions.data.length) return NextResponse.json("Basic");
+
+    return NextResponse.json("Pro");
+  } catch (error) {
+    return NextResponse.json(error, { status: 500 });
+  }
+}
