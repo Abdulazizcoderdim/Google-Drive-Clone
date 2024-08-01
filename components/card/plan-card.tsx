@@ -67,8 +67,8 @@ const PlanCard = ({
       <p className="mt-3 opacity-75 text-sm">Google One includes</p>
 
       <div className="flex flex-col space-y-2 mt-4">
-        {options.split(',').map((o) => (
-          <div className="flex items-center">
+        {options.split(',').map((o, index) => (
+          <div key={index} className="flex items-center">
             <Check className="mr-2" size={16} />
             <span className="text-sm">{o}</span>
           </div>
