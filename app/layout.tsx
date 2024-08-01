@@ -1,4 +1,5 @@
 import ModalProvider from '@/components/providers/modal-provider'
+import SubscriptionProvider from '@/components/providers/subscription-provider'
 import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes'
@@ -31,7 +32,7 @@ export default function RootLayout({
           >
             <Toaster position="top-center" />
             <ModalProvider />
-            {children}
+            <SubscriptionProvider>{children}</SubscriptionProvider>
           </ThemeProvider>
         </body>
       </html>

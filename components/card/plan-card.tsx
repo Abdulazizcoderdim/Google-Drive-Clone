@@ -1,5 +1,6 @@
 'use client'
 
+import { useSubscription } from '@/hooks/use-subscription'
 import { useUser } from '@clerk/nextjs'
 import axios from 'axios'
 import { Check } from 'lucide-react'
@@ -23,6 +24,7 @@ const PlanCard = ({
   priceId,
 }: PlanCardProps) => {
   const { user } = useUser()
+  const { subscription } = useSubscription()
 
   const onSubmit = () => {
     const promise = axios
@@ -54,12 +56,18 @@ const PlanCard = ({
       </div>
       {priceId ? (
         <div className="w-full flex justify-center">
-          <Button onClick={onSubmit}>Get offer</Button>
+          <Button onClick={onSubmit}>
+            {subscription === 'Basic' ? 'Get offer' : 'Manage subscription'}
+          </Button>
         </div>
       ) : (
         <div className="w-full flex justify-center">
-          <Button disabled variant={'destructive'}>
-            Current plan
+          <Button
+            onClick={onSubmit}
+            disabled={subscription != 'Pro'}
+            variant={subscription === 'Basic' ? 'destructive' : 'default'}
+          >
+            {subscription === 'Basic' ? 'Current plan' : 'Manage subscription'}
           </Button>
         </div>
       )}
